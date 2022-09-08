@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import string
-for i in range(97, 123):
-	if i == 101 or i == 113:
-	continue
-	print("{}".format(chr(i)), end="")
+for i in range(ord('a'), ord('z')+1):
+    if i == ord('e') or i == ord('q'):
+    continue
+    print("{:c}".format(i), end="")
