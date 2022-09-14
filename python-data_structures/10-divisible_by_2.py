@@ -6,4 +6,4 @@ def divisible_by_2(my_list=[]):
             modulus_check.append(True)
         else:
             modulus_check.append(False)
-    return 
+    return modulus_check
