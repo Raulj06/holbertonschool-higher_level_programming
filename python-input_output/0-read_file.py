@@ -1,9 +1,9 @@
 #!/usr/bin/python3
-   """ module function """
+"""reads txt files"""
 
 
 def read_file(filename=""):
-    """ read_file defined """
-    with open(filename) as f:
-        for line in f:
-            print(line, end="")
+    """reads txt files"""
+    with open(filename, encoding='UTF8') as a_file:
+        for x in a_file:
+            print(x, end='')
