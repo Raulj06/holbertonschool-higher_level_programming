@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-   """ module with rectangle class """
+""" Module with Rectangle class inheriting BaseGeometry """
 
 
-   BaseGeometry = __import__('7-base_geometry').BaseGeometry
+BaseGeometry = __import__('7-base_geometry').BaseGeometry
 
 
 class Rectangle(BaseGeometry):
