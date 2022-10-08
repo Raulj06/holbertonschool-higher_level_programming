@@ -1,52 +1,68 @@
 #!/usr/bin/python3
-"""square class"""
-from models.base import Base
+""" Module class Square """
 from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
-    """initializes a square class"""
+    """ class Square inhereting Rectangle """
+
     def __init__(self, size, x=0, y=0, id=None):
-        """populates values"""
+        """ Docstring of the __init__ method.
+        Args:
+            size (int): integer that will be either width or height
+            x (int): x coordinate
+            y (int): u coordinate
+            id (int): integer of identification number """
         super().__init__(size, size, x, y, id)
+        self.size = size
 
     @property
     def size(self):
-        """getter method for size"""
+        """ size getter """
         return self.width
 
     @size.setter
-    def size(self, size_val):
-        """size setter method"""
-        if type(size_val) is not int:
+    def size(self, value):
+        """ size setter
+        Args:
+            value (int): Contains whatever width of height
+            number was passed """
+        if (type(value) != int):
             raise TypeError("width must be an integer")
-        if size_val <= 0:
-            raise ValueError("width must be >= 0")
-        self.height = size_val
-        self.width = size_val
-
-    def __str__(self):
-        return "[Square] ({}) {}/{} - {}"\
-                .format(self.id, self.x, self.y, self.width)
+        if (value <= 0):
+            raise ValueError("width must be > 0")
+        self.width = value
+        self.height = value
 
     def update(self, *args, **kwargs):
-        """updates a varying number of args"""
-        if not args and not kwargs:
-            return
-        if len(args) != 0:
-            atts = ["id", "size", "x", "y"]
-            for idx, attribute in enumerate(args):
-                setattr(self, atts[idx], attribute)
+        """ Docstring update method that assigns attributes.
+        Args:
+            *args (list): list of arguments passed through multiple
+            parameters.
+            **kwargs (double pointer): if *args does not exist,
+            double pointer to dictionary will save the arguments
+            in key/value form. """
+        attributes = ["id", "size", "x", "y"]
+        if len(args) > 0:
+            count = 0
+            for arg in args:
+                setattr(self, attributes[count], arg)
+                count += 1
         else:
-            for key, value in kwargs.items():
-                if hasattr(self, key):
-                    setattr(self, key, value)
+            for key, values in kwargs.items():
+                setattr(self, key, values)
 
     def to_dictionary(self):
-        """returns as a dict"""
-        the_dic = {}
-        atts = ["id", "size", "x", "y"]
-        for key in atts:
-            value = getattr(self, key)
-            the_dic[key] = value
-        return the_dic
+        """ Docstring to_dictionary method that returns the
+        dictionary representation of a Square """
+        return {
+                "id": self.id,
+                "x": self.x,
+                "size": self.width,
+                "y": self.y
+                }
+
+    def __str__(self):
+        """ Docstring of __str__ method that returns a string """
+        return ("[Square] ({}) {}/{} - {}"
+                .format(self.id, self.x, self.y, self.width))
