@@ -1,15 +1,17 @@
 #!/usr/bin/python3
-"""creates base class"""
-
+""" Module class """
 import json
+import os
 
 
 class Base():
-    """base class"""
+    """ Base class defined """
     __nb_objects = 0
 
     def __init__(self, id=None):
-        """initializes base class"""
+        """ Docstring of __init__ method
+        Args:
+            id (int): integer representing identification number """
         if id is not None:
             self.id = id
         else:
@@ -18,6 +20,50 @@ class Base():
 
     @staticmethod
     def to_json_string(list_dictionaries):
-        """returns JSON str rep"""
-        if list_dictionaries is not None:
+        """ Docstring to_json_string method which returns the JSON
+        string representation of list_dictionaries.
+        Args:
+            list_dictionaries (list): list of dictionaries"""
+        if (list_dictionaries is None or len(list_dictionaries) == 0):
+            return "[]"
+        else:
             return json.dumps(list_dictionaries)
+
+    @classmethod
+    def save_to_file(cls, list_objs):
+        """ Docstring save_to_file method that writes the JSON string
+        representation of list_objs to a file.
+        Args:
+            list_objs (list): list of instances who inherits of Base """
+        empty_list = []
+        with open("{}.json".format(cls.__name__), "w", encoding='utf-8') as f:
+            if list_objs is None:
+                f.write("[]")
+            for x in list_objs:
+                empty_list.append(x.to_dictionary())
+            f.write(Base.to_json_string(empty_list))
+
+    @staticmethod
+    def from_json_string(json_string):
+        """ Doctsring from_json_string method that returns the list of the JSON
+        string representation json_string.
+        Args:
+            json_string (string): string representation of a list
+            of dictionaries """
+        empty_list = []
+        if json_string is None:
+            return empty_list
+        return json.loads(json_string)
+
+    @classmethod
+    def create(cls, **dictionary):
+        """ Docstring create method that returns instances with all attributes
+        already set.
+        Args:
+            **dictionary (double pointer): double pointer to a dictionary """
+        if cls.__name__ == "Square":
+            new_attr = cls(1)
+        if cls.__name__ == "Rectangle":
+            new_attr = cls(1, 1)
+        new_attr.update(**dictionary)
+        return new_attr
